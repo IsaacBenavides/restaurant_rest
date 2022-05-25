@@ -16,7 +16,7 @@ class Waiter(models.Model):
     last_name = models.CharField(max_length=45, null=False, blank=False)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.last_name}"
 
 
 class Table(models.Model):
@@ -26,7 +26,7 @@ class Table(models.Model):
     ubications = models.CharField(max_length=45, null=False, blank=False)
 
     def __str__(self):
-        return self.ubications
+        return str(self.id_table)
 
 
 class Saucer(models.Model):
@@ -67,10 +67,8 @@ class Invoice(models.Model):
 
 class Order(models.Model):
 
-    quantity_drinks = models.IntegerField(null=True, blank=True, default=0)
-    drink = models.ForeignKey(Drink, on_delete=models.CASCADE)
-    quantity_saucer = models.IntegerField(null=True, blank=True, default=0)
-    saucer = models.ForeignKey(Saucer, on_delete=models.CASCADE)
+    drinks = models.ForeignKey(Drink, on_delete=models.CASCADE)
+    saucers = models.ForeignKey(Saucer, on_delete=models.CASCADE)
     invoice = models.ForeignKey(
         Invoice, on_delete=models.CASCADE, null=False, blank=False
     )
